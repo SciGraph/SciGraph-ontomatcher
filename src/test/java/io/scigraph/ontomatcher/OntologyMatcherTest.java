@@ -17,10 +17,13 @@ package io.scigraph.ontomatcher;
 
 import static org.mockito.Mockito.mock;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
 
+import edu.sdsc.scigraph.annotation.EntityFormatConfiguration;
 import edu.sdsc.scigraph.annotation.EntityProcessor;
 import edu.sdsc.scigraph.owlapi.OntologyGraphRule;
 
@@ -34,11 +37,12 @@ public class OntologyMatcherTest {
   @Before
   public void setup() throws Exception {
     EntityProcessor processor = mock(EntityProcessor.class);
-    matcher = new OntologyMatcher(ontologyGraph.getGraphDb(), processor);
+    EntityFormatConfiguration config = mock(EntityFormatConfiguration.class);
+    matcher = new OntologyMatcher(ontologyGraph.getGraphDb(), processor, config);
   }
 
   @Test
-  public void matchTest() {
+  public void matchTest() throws IOException {
     matcher.matchAll();
   }
 

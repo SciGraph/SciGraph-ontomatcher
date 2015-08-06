@@ -15,33 +15,45 @@
  */
 package io.scigraph.ontomatcher;
 
+import java.io.IOException;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.tooling.GlobalGraphOperations;
 
+import edu.sdsc.scigraph.annotation.EntityAnnotation;
+import edu.sdsc.scigraph.annotation.EntityFormatConfiguration;
 import edu.sdsc.scigraph.annotation.EntityProcessor;
 
 public class OntologyMatcher {
 
-  private final GraphDatabaseService graphDb;
-  private final GlobalGraphOperations graphOps;
-  private final EntityProcessor processor;
+	private final GraphDatabaseService graphDb;
+	private final GlobalGraphOperations graphOps;
+	private final EntityProcessor processor;
+	private final EntityFormatConfiguration entityFormatConfiguration;
 
-  @Inject
-  OntologyMatcher(GraphDatabaseService graphDb, EntityProcessor processor) {
-    this.graphDb = graphDb;
-    graphOps =  GlobalGraphOperations.at(graphDb);
-    this.processor = processor;
-  }
+	@Inject
+	OntologyMatcher(GraphDatabaseService graphDb, EntityProcessor processor, EntityFormatConfiguration config) {
+		this.graphDb = graphDb;
+		graphOps =  GlobalGraphOperations.at(graphDb);
+		this.processor = processor;
+		entityFormatConfiguration = config;
+	}
 
-  public void matchAll() {
-    System.out.println("Matching all");
-    System.out.println("Processor: "+processor);
-    graphDb.beginTx();
-    for (Node n : graphOps.getAllNodes()) {
-      System.out.println("NODE="+n);
-    }
-  }
+	public void matchAll() throws IOException {
+		System.out.println("Matching all");
+		System.out.println("Processor: "+processor);
+		graphDb.beginTx();
+		for (Node n : graphOps.getAllNodes()) {
+			List<EntityAnnotation> anns = processor.annotateEntities(entityFormatConfiguration);
+			System.out.println("NODE="+n);
+			for (EntityAnnotation a : anns) {
+				System.out.println(  "Ann="+a);
+ 				
+			}
+		}
+	}
 }
