@@ -43,6 +43,18 @@ public class OntologyMatcher {
 		entityFormatConfiguration = config;
 	}
 
+	/**
+	 * Do an all x all lexical comparison for each node in graph;
+	 * 
+	 * For each comparison annotate the {label,syn} of n_i and find the subset of nodes
+	 * that match, either partial or complete
+	 * 
+	 * This can be used to build a graph of edges between n_i and n_j, of type
+	 * lexically equivalent vs lexically subset of (analogous to and hypotheses for
+	 * EquivalentClasses and SubClassOf)
+	 * 
+	 * @throws IOException
+	 */
 	public void matchAll() throws IOException {
 		System.out.println("Matching all");
 		System.out.println("Processor: "+processor);
