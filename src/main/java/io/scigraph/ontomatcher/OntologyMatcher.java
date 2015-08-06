@@ -15,7 +15,10 @@
  */
 package io.scigraph.ontomatcher;
 
+import static com.google.common.collect.Iterables.*;
+
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,9 +27,12 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.tooling.GlobalGraphOperations;
 
+import static com.google.common.collect.Iterables.getFirst;
 import edu.sdsc.scigraph.annotation.EntityAnnotation;
 import edu.sdsc.scigraph.annotation.EntityFormatConfiguration;
 import edu.sdsc.scigraph.annotation.EntityProcessor;
+import edu.sdsc.scigraph.frames.NodeProperties;
+import edu.sdsc.scigraph.internal.TinkerGraphUtil;
 
 public class OntologyMatcher {
 
@@ -59,13 +65,30 @@ public class OntologyMatcher {
 		System.out.println("Matching all");
 		System.out.println("Processor: "+processor);
 		graphDb.beginTx();
+		int numAnns = 0;
 		for (Node n : graphOps.getAllNodes()) {
-			List<EntityAnnotation> anns = processor.annotateEntities(entityFormatConfiguration);
-			System.out.println("NODE="+n);
-			for (EntityAnnotation a : anns) {
-				System.out.println(  "Ann="+a);
- 				
+			//String label = getFirst(TinkerGraphUtil.getProperties(n, NodeProperties.LABEL, String.class), null);
+
+			// TODO: no cast
+			String label = "";
+			for (String k : n.getPropertyKeys()) {
+				Object v = n.getProperty(k);
+				if (v instanceof String) {
+					label = (String)v;
+					//String label = (String) n.getProperty(NodeProperties.LABEL);
+					System.out.println("p="+k+ " V="+label);
+					
+					EntityFormatConfiguration.Builder configBuilder = 
+							new EntityFormatConfiguration.Builder(new StringReader(label));
+
+					List<EntityAnnotation> anns = processor.annotateEntities(entityFormatConfiguration);
+					for (EntityAnnotation a : anns) {
+						System.out.println("Node="+label+ " Ann="+a);
+
+					}
+				}
 			}
 		}
+		System.out.println("#anns="+numAnns);
 	}
 }
