@@ -15,8 +15,6 @@
  */
 package io.scigraph.ontomatcher;
 
-import static com.google.common.collect.Iterables.*;
-
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
@@ -27,12 +25,9 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.tooling.GlobalGraphOperations;
 
-import static com.google.common.collect.Iterables.getFirst;
 import edu.sdsc.scigraph.annotation.EntityAnnotation;
 import edu.sdsc.scigraph.annotation.EntityFormatConfiguration;
 import edu.sdsc.scigraph.annotation.EntityProcessor;
-import edu.sdsc.scigraph.frames.NodeProperties;
-import edu.sdsc.scigraph.internal.TinkerGraphUtil;
 
 public class OntologyMatcher {
 
