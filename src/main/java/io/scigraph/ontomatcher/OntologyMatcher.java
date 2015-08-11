@@ -15,6 +15,10 @@
  */
 package io.scigraph.ontomatcher;
 
+import io.scigraph.annotation.EntityAnnotation;
+import io.scigraph.annotation.EntityFormatConfiguration;
+import io.scigraph.annotation.EntityProcessor;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
@@ -24,10 +28,6 @@ import javax.inject.Inject;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.tooling.GlobalGraphOperations;
-
-import edu.sdsc.scigraph.annotation.EntityAnnotation;
-import edu.sdsc.scigraph.annotation.EntityFormatConfiguration;
-import edu.sdsc.scigraph.annotation.EntityProcessor;
 
 public class OntologyMatcher {
 

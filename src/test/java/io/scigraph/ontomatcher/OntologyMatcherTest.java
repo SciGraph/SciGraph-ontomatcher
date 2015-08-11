@@ -16,16 +16,15 @@
 package io.scigraph.ontomatcher;
 
 import static org.mockito.Mockito.mock;
+import io.scigraph.annotation.EntityFormatConfiguration;
+import io.scigraph.annotation.EntityProcessor;
+import io.scigraph.owlapi.OntologyGraphRule;
 
 import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
-
-import edu.sdsc.scigraph.annotation.EntityFormatConfiguration;
-import edu.sdsc.scigraph.annotation.EntityProcessor;
-import edu.sdsc.scigraph.owlapi.OntologyGraphRule;
 
 public class OntologyMatcherTest {
 

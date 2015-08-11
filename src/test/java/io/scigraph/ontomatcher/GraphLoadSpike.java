@@ -1,5 +1,13 @@
 package io.scigraph.ontomatcher;
 
+import io.scigraph.annotation.EntityFormatConfiguration;
+import io.scigraph.annotation.EntityModule;
+import io.scigraph.annotation.EntityProcessor;
+import io.scigraph.neo4j.Neo4jModule;
+import io.scigraph.owlapi.loader.BatchOwlLoader;
+import io.scigraph.owlapi.loader.OwlLoadConfiguration;
+import io.scigraph.owlapi.loader.OwlLoaderModule;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -13,14 +21,6 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.google.common.io.Resources;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
-import edu.sdsc.scigraph.annotation.EntityFormatConfiguration;
-import edu.sdsc.scigraph.annotation.EntityModule;
-import edu.sdsc.scigraph.annotation.EntityProcessor;
-import edu.sdsc.scigraph.neo4j.Neo4jModule;
-import edu.sdsc.scigraph.owlapi.loader.BatchOwlLoader;
-import edu.sdsc.scigraph.owlapi.loader.OwlLoadConfiguration;
-import edu.sdsc.scigraph.owlapi.loader.OwlLoaderModule;
 
 public class GraphLoadSpike {
 
